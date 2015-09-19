@@ -1,0 +1,22 @@
+{
+  "name": "viewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "gulp": "^3.9.0",
+    "gulp-live-server": "0.0.28",
+    "gulp-stylus": "^2.0.7",
+    "jade": "^1.11.0"
+  },
+  "devDependencies": {
+    "gulp-uglify": "^1.4.1",
+    "gulp-watch": "^4.3.5"
+  }
+}

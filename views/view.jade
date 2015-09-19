@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+	head
+		title=fileName
+		link(rel="stylesheet", href="/app.css")
+		
+	body
+		.status-bar-top
+			a(href=filePath title="Direct link").filename=fileName
+				
+		.viewer
+			.image-container
+				img.image(src=filePath, alt="")
+		
+		script(src="/app.js")

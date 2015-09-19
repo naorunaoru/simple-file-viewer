@@ -1,0 +1,1 @@
+!function(){"use strict";var e=document.getElementsByClassName("image-container")[0],t=function(t){e.classList.toggle("image-container__zoomed")};e.addEventListener("click",t)}();
