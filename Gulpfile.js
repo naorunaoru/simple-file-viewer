@@ -6,7 +6,9 @@ var uglify = require('gulp-uglify');
 
 gulp.task('style', function () {
   gulp.src('./styles/app.styl')
-    .pipe(stylus())
+    .pipe(stylus({
+	      compress: true
+	    }))
     .pipe(gulp.dest('./public/'));
 });
 
