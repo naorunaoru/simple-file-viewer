@@ -9,7 +9,23 @@ app.set('view engine', 'jade');
 
 app.get('/:file', function (req, res) {
 	var pathRelativeToClient = '/box/' + req.params.file;
-	var pathRelativeToServer = './public' + pathRelativeToClient;
+	var pathRelativeToServer = __dirname + '/public' + pathRelativeToClient;
+
+	// костыль для мейлру агента (хочу лулзы в чатик кидать), потом что-нибудь придумаю
+	if (req.headers['user-agent'].indexOf('Mail.Ru') != -1) {
+		var stat = fs.statSync(pathRelativeToServer);
+
+		res.writeHead(200, {
+				'Content-Type': 'image',
+				'Content-Length': stat.size
+		});
+
+		var readStream = fs.createReadStream(pathRelativeToServer);
+		readStream.pipe(res);
+
+		return false;
+	}
+	// костыль кончился, можно выдохнуть
 
 	try {
 		fs.statSync(pathRelativeToServer);
@@ -34,7 +50,7 @@ app.get('/:file', function (req, res) {
 	});
 });
 
-var server = app.listen(80, function () {
+var server = app.listen(process.argv[2] || 80, function () {
   var host = server.address().address;
   var port = server.address().port;
 
