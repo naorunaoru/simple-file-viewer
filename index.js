@@ -25,7 +25,12 @@ app.get('/:file', function (req, res) {
 
   res.render('view', {
 		fileName: req.params.file,
-		filePath: pathRelativeToClient
+		filePath: pathRelativeToClient,
+
+		meta: {
+			fullPath: 'http://kpwk.pw/' + req.params.file,
+			fullDirectPath: 'http://kpwk.pw' + pathRelativeToClient
+		}
 	});
 });
 
