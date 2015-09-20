@@ -1,5 +1,6 @@
 var express = require('express');
 var fs = require('fs');
+var mime = require('mime-types');
 
 var app = express();
 
@@ -7,11 +8,11 @@ app.use(express.static('public'));
 
 app.set('view engine', 'jade');
 
-app.get('/:file', function (req, res) {
+// костыль для мейлру агента (хочу лулзы в чатик кидать), потом что-нибудь придумаю
+var checkMRA = function(req, res, next) {
 	var pathRelativeToClient = '/box/' + req.params.file;
 	var pathRelativeToServer = __dirname + '/public' + pathRelativeToClient;
 
-	// костыль для мейлру агента (хочу лулзы в чатик кидать), потом что-нибудь придумаю
 	if (req.headers['user-agent'].indexOf('Mail.Ru') != -1) {
 		var stat = fs.statSync(pathRelativeToServer);
 
@@ -25,7 +26,27 @@ app.get('/:file', function (req, res) {
 
 		return false;
 	}
-	// костыль кончился, можно выдохнуть
+
+	next();
+}
+// костыль кончился, можно выдохнуть
+
+// а, нет, другой костыль — проверка изображения по mime-типу зачем-то
+var templateSelector = function(path) {
+	var contentType = mime.lookup(path);
+
+	if (contentType.split('/')[0] == 'image' && contentType.split('/')[1].match(/(jpg|jpeg|png|gif)/)) {
+		return 'view'
+	} else {
+		return 'download'
+	}
+}
+
+app.use('/:file', checkMRA);
+
+app.get('/:file', function (req, res) {
+	var pathRelativeToClient = '/box/' + req.params.file;
+	var pathRelativeToServer = __dirname + '/public' + pathRelativeToClient;
 
 	try {
 		fs.statSync(pathRelativeToServer);
@@ -41,7 +62,7 @@ app.get('/:file', function (req, res) {
 		}
 	}
 
-  res.render('view', {
+  res.render(templateSelector(req.params.file), {
 		fileName: req.params.file,
 		filePath: pathRelativeToClient,
 

@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+	head
+		title=fileName
+		link(rel="stylesheet", href="/app.css")
+			
+		meta(property="og:title" content=fileName)
+		meta(property="og:type" content="website")
+		meta(property="og:url" content=meta.fullPath)
+		meta(property="og:description" content="A simple file sharing thingamajig by @naorunaoru.")
+		
+	body
+		.status-bar-top
+			a(href=filePath title="Direct link").filename=fileName
+				
+		.viewer
+			a.view-file(href=filePath)
+				img(src="/img/download.svg", alt="")
+				=fileName
+		
+		script(src="/app.js")
