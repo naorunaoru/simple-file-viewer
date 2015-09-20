@@ -33,7 +33,7 @@ var checkMRA = function(req, res, next) {
 
 // а, нет, другой костыль — проверка изображения по mime-типу зачем-то
 var templateSelector = function(path) {
-	var contentType = mime.lookup(path);
+	var contentType = mime.lookup(path) || 'application/octet-stream';
 
 	if (contentType.split('/')[0] == 'image' && contentType.split('/')[1].match(/(jpg|jpeg|png|gif)/)) {
 		return 'view'

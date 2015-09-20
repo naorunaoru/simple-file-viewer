@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+	head
+		link(rel="stylesheet", href="/app.css")
+			
+		meta(property="og:type" content="website")
+		meta(property="og:description" content="A simple file sharing thingamajig by @naorunaoru.")
+		
+		if fileName
+			meta(property="og:title" content=fileName)
+		
+		if meta
+			if meta.fullPath
+				meta(property="og:url" content=meta.fullPath)
+			
+		block head
+			title Hi.
+		
+	body
+		.status-bar-top
+			if fileName && filePath
+				a(href=filePath title="Direct link").filename=fileName
+				
+		block body
+			
+		script(src="/app.js")
