@@ -31,9 +31,11 @@ app.get('/:file', function (req, res) {
 		fs.statSync(pathRelativeToServer);
 	} catch (err) {
 		if (err.code == 'ENOENT') {
-			res.render('error-404', {
-				fileName: req.params.file
-			});
+			res
+				.status(404)
+				.render('error-404', {
+					fileName: req.params.file
+				});
 
 			return false;
 		}

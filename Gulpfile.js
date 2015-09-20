@@ -24,7 +24,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('serve', function() {
-  var server = gls.new('index.js');
+  var server = gls.new(['index.js', '3000']);
   server.start();
 
 	gulp.watch(['./public/**'], function(file) {
