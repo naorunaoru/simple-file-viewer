@@ -74,8 +74,8 @@ app.get('/:file', bootstrapRequest, checkMRA, function (req, res) {
 		filePath: req._fileMeta.pathRelativeToClient,
 
 		meta: {
-			fullPath: 'http://kpwk.pw/' + req.params.file,
-			fullDirectPath: 'http://kpwk.pw' + req._fileMeta.pathRelativeToClient,
+			fullPath: encodeURI('http://kpwk.pw/' + req.params.file),
+			fullDirectPath: encodeURI('http://kpwk.pw' + req._fileMeta.pathRelativeToClient),
 			fileSize: req._fileMeta.fileSize
 		}
 	});
