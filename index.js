@@ -1,6 +1,7 @@
 var express = require('express');
 var fs = require('fs');
 var mime = require('mime-types');
+var hljs = require('highlight.js');
 
 var helpers = require('./helpers.js');
 
@@ -63,13 +64,17 @@ var templateSelector = function(path) {
 
 	if (contentType.split('/')[0] == 'image' && contentType.split('/')[1].match(/(jpg|jpeg|png|gif)/)) {
 		return 'view'
+	} else if (contentType.split('/')[1].match(/(javascript|html|python|css|x-sh)/)) {
+		return 'text'
 	} else {
 		return 'download'
 	}
 }
 
 app.get('/:file', bootstrapRequest, checkMRA, function (req, res) {
-  res.render(templateSelector(req.params.file), {
+	var template = templateSelector(req.params.file);
+
+	var config = {
 		fileName: req.params.file,
 		filePath: req._fileMeta.pathRelativeToClient,
 
@@ -78,7 +83,16 @@ app.get('/:file', bootstrapRequest, checkMRA, function (req, res) {
 			fullDirectPath: encodeURI('http://kpwk.pw' + req._fileMeta.pathRelativeToClient),
 			fileSize: req._fileMeta.fileSize
 		}
-	});
+	}
+
+	if (template == 'text') {
+		var file = fs.readFileSync(req._fileMeta.pathRelativeToServer, "utf8");
+		var highlightedSource = hljs.highlightAuto(file).value;
+
+		config.highlightedSourceHTMLString = highlightedSource;
+	}
+
+  res.render(template, config);
 });
 
 var server = app.listen(process.argv[2] || 80, function () {
