@@ -11,7 +11,7 @@ app.use(express.static('public'));
 app.set('view engine', 'jade');
 
 var bootstrapRequest = function(req, res, next) {
-	var pathRelativeToClient = '/box/' + req.params.file;
+	var pathRelativeToClient = '/box/' + req.params.file.replace('../', ''); // I don't know if this might actually work
 	var pathRelativeToServer = __dirname + '/public' + pathRelativeToClient;
 
 	try {
