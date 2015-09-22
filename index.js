@@ -64,7 +64,7 @@ var templateSelector = function(path) {
 
 	if (contentType.split('/')[0] == 'image' && contentType.split('/')[1].match(/(jpg|jpeg|png|gif)/)) {
 		return 'view'
-	} else if (contentType.split('/')[1].match(/(javascript|html|python|css|x-sh)/)) {
+	} else if (contentType.split('/')[1].match(/(javascript|html|python|css|x-sh|plain)/)) {
 		return 'text'
 	} else {
 		return 'download'
