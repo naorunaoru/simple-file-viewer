@@ -33,7 +33,8 @@ var bootstrapRequest = function(req, res, next) {
 	req._fileMeta = {
 		pathRelativeToServer: pathRelativeToServer,
 		pathRelativeToClient: pathRelativeToClient,
-		fileSize: fileSize
+		fileSize: fileSize,
+		host: req.protocol + '://' + req.headers.host
 	}
 
 	next();
@@ -79,8 +80,8 @@ app.get('/:file', bootstrapRequest, checkMRA, function (req, res) {
 		filePath: req._fileMeta.pathRelativeToClient,
 
 		meta: {
-			fullPath: encodeURI('http://kpwk.pw/' + req.params.file),
-			fullDirectPath: encodeURI('http://kpwk.pw' + req._fileMeta.pathRelativeToClient),
+			fullPath: encodeURI(req._fileMeta.host + '/' + req.params.file),
+			fullDirectPath: encodeURI(req._fileMeta.host + req._fileMeta.pathRelativeToClient),
 			fileSize: req._fileMeta.fileSize
 		}
 	}

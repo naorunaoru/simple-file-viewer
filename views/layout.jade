@@ -5,7 +5,6 @@ html(lang="en")
 		link(rel="stylesheet" href="/app.css")
 			
 		meta(property="og:type" content="website")
-		meta(property="og:description" content="A simple file sharing thingamajig by @naorunaoru.")
 		
 		if fileName
 			meta(property="og:title" content=fileName)
@@ -25,3 +24,4 @@ html(lang="en")
 		block body
 			
 		script(src="/app.js")
+		p=meta.host
