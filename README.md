@@ -8,3 +8,4 @@ Quick and dirty file server built to show images uploaded with [FileShuttle](htt
 
 - Image viewer (duh)
 - Code viewer with syntax highlighting (using [highlight.js](https://highlightjs.org/))
+- Audio player (HTML5 only)
