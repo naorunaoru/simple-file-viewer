@@ -67,7 +67,9 @@ var templateSelector = function(path) {
 		return 'view'
 	} else if (contentType.split('/')[1].match(/(javascript|html|python|css|x-sh|plain)/)) {
 		return 'text'
-	} else {
+	} else if (contentType.split('/')[0] == 'audio' && contentType.split('/')[1].match(/mpeg|wav|ogg/)) {
+		return 'player'
+	}	else {
 		return 'download'
 	}
 }

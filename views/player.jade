@@ -1,0 +1,10 @@
+extends ./layout.jade
+
+block head
+	title=fileName
+	link(rel="stylesheet", href="/railscasts.css")
+
+block body
+	.audio-player
+		audio(controls)
+			source(src=filePath)
